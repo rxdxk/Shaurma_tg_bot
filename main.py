@@ -1,10 +1,13 @@
 import telebot
 from telebot import types
-from keyboards import main_menu_kb,food_menu_kb,start_kb
-
+from keyboards import main_menu_kb,start_kb
+import os 
+from dotenv import load_dotenv
+ 
+load_dotenv()
 food_menu = False
 
-API_TOKEN = '6094386761:AAFPrt-ZYA0XDzR_54ry637EcHRcnc0vEuA'
+API_TOKEN = os.getenv('API_TOKEN')
 bot = telebot.TeleBot(API_TOKEN)
 @bot.message_handler(commands=['start'])
 def say_hello(message):
@@ -24,7 +27,9 @@ def kb_answer(message):
        bot.send_message(message.chat.id,"+123456789")
     
    elif message.text == 'Меню':
-       bot.send_message(message.chat.id,"Ось наше меню:",reply_markup=food_menu_kb)
+       with open('menu.jpg','rb') as file:
+           bot.send_message(message.chat.id,"Ось нaше меню:")
+           bot.send_photo(message.chat.id,file)
        global food_menu
        food_menu = True
    elif message.text == 'Назад':
@@ -35,5 +40,6 @@ def kb_answer(message):
     
 
 bot.polling()
+
 
 
