@@ -1,6 +1,6 @@
 import telebot
 from telebot import types
-from keyboards import main_menu_kb,start_kb
+from keyboards import main_menu_kb,start_kb,order_kb,shaurma_kb,falafel_kb,garniers_kb,rols_kb,drinks_kb
 import os 
 from dotenv import load_dotenv
  
@@ -33,7 +33,28 @@ def kb_answer(message):
    elif message.text == 'Назад':
        if food_menu == True:
            bot.send_message(message.chat.id,"Ви повернулись назад",reply_markup=main_menu_kb)
+   elif message.text == 'Зробити замовлення':
+       bot.send_message(message.chat.id,"Ось наші позиції",reply_markup=order_kb)
+
+
+@bot.callback_query_handler(func = lambda callback:callback.data)
+def check_callback_data(callback):
+    if callback.data == "Шаурма":
+     bot.send_message(callback.message.chat.id,"Це наші шаурми",reply_markup=shaurma_kb)
+    elif callback.data == 'Фалафель':
+        bot.send_message(callback.message.chat.id,"Це наші фалафелі",reply_markup=falafel_kb)
+    elif callback.data == 'Гарніри':
+        bot.send_message(callback.message.chat.id,"Це наші фалафелі",reply_markup=garniers_kb)
+    elif callback.data == 'Роли':
+        bot.send_message(callback.message.chat.id,"Це наші роли",reply_markup=rols_kb)
+    elif callback.data == 'Напої':
+        bot.send_message(callback.message.chat.id,"Це наші напої",reply_markup=drinks_kb)
+
+
     
+
+bot.polling()
+
 
     
 
