@@ -11,7 +11,7 @@ main_menu_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*main_menu_bu
 
 food_menu_buttons = [types.KeyboardButton("Шаурма🌯"),
                      types.KeyboardButton("Фалафель🧆"),
-                     types.KeyboardButton("Картопля фрі🍟  "),
+                     types.KeyboardButton("Картопля фрі🍟"),
                      types.KeyboardButton("Напої🥤"),
                      types.KeyboardButton("Назад↩️")]
 food_menu_kb = types.ReplyKeyboardMarkup(resize_keyboard=True,row_width=2).add(*food_menu_buttons)
