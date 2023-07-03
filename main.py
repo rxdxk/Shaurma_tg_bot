@@ -23,10 +23,8 @@ def say_hello(message):
 
 @bot.message_handler()
 def kb_answer(message):
-   if message.text == 'Контакти':
-       bot.send_message(message.chat.id,"+123456789")
     
-   elif message.text == 'Меню':
+   if message.text == 'Меню':
        with open('menu.jpg','rb') as file:
            bot.send_message(message.chat.id,"Ось нaше меню:")
            bot.send_photo(message.chat.id,file)
