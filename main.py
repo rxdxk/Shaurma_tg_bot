@@ -37,7 +37,7 @@ def kb_answer(message):
         user_num = message.text
         if len(user_num) == 10 and user_num[0] == '0':
             bot.send_message(message.chat.id,f'Ваш номер {user_num}')
-            func_reply = True
+            get_user_data(message)
         elif len(user_num) != 10 or user_num[0] != '0':
             bot.send_message(message.chat.id,'Номер введено невірно')
             check_num(message)
@@ -125,6 +125,11 @@ def check_callback_data(callback):
         bot.send_message(callback.message.chat.id,"Це наші напої",reply_markup=drinks_kb)
     if callback.data == 'Додатки':
         bot.send_message(callback.message.chat.id,"Це наші додатки",reply_markup=dodatki_kb)
+
+
+
+  
+
 
 
 
