@@ -11,9 +11,8 @@ load_dotenv()
 API_TOKEN = os.getenv('API_TOKEN') #Токен из .env
 bot = telebot.TeleBot(API_TOKEN) 
 
-global basket  #Общая корзина товаров
-basket =  []
-global basket_str #Корзина которую выводим как строку
+basket =  [] #Общая корзина товаров 
+
 
 
 
@@ -142,6 +141,14 @@ def check_callback_data(callback):
         bot.send_message(callback.message.chat.id,"Це наші напої",reply_markup=drinks_kb)
     if callback.data == 'Додатки':
         bot.send_message(callback.message.chat.id,"Це наші додатки",reply_markup=dodatki_kb)
+
+
+
+  
+
+#Запуск
+bot.polling()
+
 
 
 
