@@ -1,24 +1,23 @@
 import telebot
 from telebot import types
+#Импорты клавиатур из  keyboaards.py
 from keyboards import main_menu_kb,start_kb,order_kb,shaurma_kb,falafel_kb,garniers_kb,rols_kb,drinks_kb,shaurma_posititons,rols_positions,drinks_positions,falafel_positions,garniers_positions,yes_or_no_kb,dodatki_kb,dodatki_positions
 import os 
+#Загрузка .env
 from dotenv import load_dotenv
-
 load_dotenv()
 
 
-API_TOKEN = os.getenv('API_TOKEN')
-bot = telebot.TeleBot(API_TOKEN)
+API_TOKEN = os.getenv('API_TOKEN') #Токен из .env
+bot = telebot.TeleBot(API_TOKEN) 
 
-global basket 
+global basket  #Общая корзина товаров
 basket =  []
-global basket_str
-basket_str = ''
-user_adres = ''
-global func_reply
-func_reply = False
+global basket_str #Корзина которую выводим как строку
 
-@bot.message_handler(commands=['start'])
+
+
+@bot.message_handler(commands=['start'])  #Приветствие
 def say_hello(message):
     with open('stonik.jpg','rb') as file:
         bot.send_photo(message.chat.id,file)
@@ -28,12 +27,15 @@ def say_hello(message):
 
 
 
-@bot.message_handler()
-def kb_answer(message):
-   def check_num(message):
+@bot.message_handler() #Основной хендлер
+def kb_answer(message):  
+   
+
+
+   def check_num(message):   #Проверка номера 1
        msg = bot.send_message(message.chat.id,'Напишіть номер телефону у форматі 0123456789')
        bot.register_next_step_handler(msg,check_num2)
-   def check_num2(message):
+   def check_num2(message): #Проверка номера 2
         user_num = message.text
         if len(user_num) == 10 and user_num[0] == '0':
             bot.send_message(message.chat.id,f'Ваш номер {user_num}')
@@ -41,20 +43,26 @@ def kb_answer(message):
         elif len(user_num) != 10 or user_num[0] != '0':
             bot.send_message(message.chat.id,'Номер введено невірно')
             check_num(message)
-   def get_user_data(message):
+
+
+   def get_user_data(message): #Получаем имя и фамилию 1
        msg = bot.send_message(message.chat.id,"Введіть ваше ім'я та призвище")
        bot.register_next_step_handler(msg,get_user_data2)
-   def get_user_data2(message):
+   def get_user_data2(message):#Получаем имя и фамилию 1
        user_data = message.text
        bot.send_message(message.chat.id,f"Ваше ім'я та прізвище:{user_data}")
-   def order_acception(message):
+       bot.send_message(message.chat.id,"Ваше замовлення прийнято")
+
+
+
+   def order_acception(message): #Принятие заказа да/нет 1
        msg = bot.send_message(message.chat.id,f"Все вірно ?",reply_markup=yes_or_no_kb)
        show_basket()
        bot.register_next_step_handler(msg,order_acception2)
-   def acception_key_func(acception_buttons):
+   def acception_key_func(acception_buttons): #Генерация клавиатуры при отказе от чего-то в заказе
     for x in basket:
       acception_buttons.append(types.KeyboardButton(x))
-   def order_acception2(message):
+   def order_acception2(message): #Принятие заказа да/нет 1
        user_response = message.text
        if user_response == 'Так' and basket != []:
            bot.send_message(message.chat.id,"Супер!")
@@ -70,7 +78,8 @@ def kb_answer(message):
        elif user_response == "Ні" and basket == []:
            bot.send_message(message.chat.id,"Ваша корзина пуста (",reply_markup=main_menu_kb)
 
-   def order_acception3(message):
+
+   def order_acception3(message): #Принятие заказа да/нет + клавиатура 
     if basket != []:
        user_acception = message.text
        basket.remove(message.text)
@@ -79,22 +88,28 @@ def kb_answer(message):
         bot.send_message(message.chat.id,"Ваша корзина пуста (",reply_markup=main_menu_kb)
 
 
-   def show_basket():
+   def show_basket(): #Показывает корзину 
     basket_str = (', ').join(basket)
     bot.send_message(message.chat.id,f"Ваша корзина:{basket_str}")
-   if message.text == 'Меню':
+
+
+   if message.text == 'Меню':  #При нажатии Меню
        with open('menu.jpg','rb') as file:
            bot.send_message(message.chat.id,"Ось нaше меню:")
            bot.send_photo(message.chat.id,file)
-   if message.text == 'Назад':
+
+   if message.text == 'Назад': #При нажатии Назад
            bot.send_message(message.chat.id,"Ви повернулись назад",reply_markup=main_menu_kb)
-   if message.text == "Завершити замовленя" and basket != []:
+   if message.text == "Завершити замовленя" and basket != []: #При нажатии Завершить если корзина не пустая
        show_basket()
        order_acception(message)
-   if message.text == "Завершити замовленя" and basket == []:
+
+   if message.text == "Завершити замовленя" and basket == []: #При нажатии Завершить если корзина пустая
        bot.send_message(message.chat.id, "Ваше замовлення пусте(")
-   if message.text == 'Зробити замовлення':
-       bot.send_message(message.chat.id,"Ось наші позиції,щоб вибрати натисніть на кнопку",reply_markup=order_kb)
+   if message.text == 'Зробити замовлення': #При нажати Зробити замовлення
+       bot.send_message(message.chat.id,"Ось наші позиції,щоб вибрати натисніть на кнопку",reply_markup=order_kb)\
+    
+    #Проверки на фильтрацию слова Завершить заказ дабы оно не попадало в корзину как елемент
    if message.text  in shaurma_posititons[0:7]:
       basket.append(message.text)
       show_basket()
@@ -111,9 +126,11 @@ def kb_answer(message):
       basket.append(message.text)
       show_basket()
       
-@bot.callback_query_handler(func = lambda callback:callback.data)
+
+@bot.callback_query_handler(func = lambda callback:callback.data) #Хендлер инлайн клавиатуры заказа
 def check_callback_data(callback):
-    if callback.data == "Шаурма":
+    #Инструкции callback даты с той же клавиатуры
+    if callback.data == "Шаурма": 
      bot.send_message(callback.message.chat.id,"Це наші шаурми",reply_markup=shaurma_kb)
     if callback.data == 'Фалафель':
         bot.send_message(callback.message.chat.id,"Це наші фалафелі",reply_markup=falafel_kb)
@@ -130,12 +147,5 @@ def check_callback_data(callback):
 
   
 
-
-
-
-  
-
-  
+#Запуск
 bot.polling()
-
-
