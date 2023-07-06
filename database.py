@@ -12,7 +12,7 @@ def base():
 
 
   conn.execute("INSERT INTO orders (first_name, last_name, order_number, address) VALUES (?, ?, ?, ?)",
-             (user_data, basket, user_num))
+             (user_data, basket, user_num, user_adress))
 
   conn.commit()
 
