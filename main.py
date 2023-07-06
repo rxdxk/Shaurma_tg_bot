@@ -33,8 +33,10 @@ def kb_answer(message):
    def user_adress(message): #Адрес пользователя
        msg = bot.send_message(message.chat.id,'Напишіть вашу адресу')
        bot.register_next_step_handler(msg,user_adress2)
-   def user_adress2(message):
+   def user_adress2(message): #Адрес пользователя2
+       global user_adres
        user_adress = message.text
+       database.base()
        bot.send_message(message.chat.id,"Ваше замовлення прийнято")
    
 
@@ -42,6 +44,7 @@ def kb_answer(message):
        msg = bot.send_message(message.chat.id,'Напишіть номер телефону у форматі 0123456789')
        bot.register_next_step_handler(msg,check_num2)
    def check_num2(message): #Проверка номера 2
+        global user_num
         user_num = message.text
         if len(user_num) == 10 and user_num[0] == '0':
             bot.send_message(message.chat.id,f'Ваш номер {user_num}')
@@ -55,9 +58,10 @@ def kb_answer(message):
        msg = bot.send_message(message.chat.id,"Введіть ваше ім'я та призвище")
        bot.register_next_step_handler(msg,get_user_data2)
    def get_user_data2(message):#Получаем имя и фамилию 1
+       global user_data
        user_data = message.text
        bot.send_message(message.chat.id,f"Ваше ім'я та прізвище:{user_data}")
-       bot.send_message(message.chat.id,"Ваше замовлення прийнято")
+       user_adress(message)
 
 
    def order_acception(message): #Принятие заказа да/нет 1
@@ -94,6 +98,7 @@ def kb_answer(message):
 
 
    def show_basket(): #Показывает корзину 
+    global  basket_str
     basket_str = (', ').join(basket)
     bot.send_message(message.chat.id,f"Ваша корзина:{basket_str}")
 
@@ -111,7 +116,6 @@ def kb_answer(message):
    if message.text == "Завершити замовленя" and basket != []: #При нажатии Завершить если корзина не пустая
        show_basket()
        order_acception(message)
-       database.base()
 
     
    if message.text == "Завершити замовленя" and basket == []: #При нажатии Завершить если корзина пустая
