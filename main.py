@@ -1,20 +1,21 @@
 import telebot
+import database
+import os 
 from telebot import types
 #Импорты клавиатур из  keyboaards.py
 from keyboards import *
-import os 
 #Загрузка .env
 from dotenv import load_dotenv
-import database
+
+
 load_dotenv()
 
 
 API_TOKEN = os.getenv('API_TOKEN') #Токен из .env
 bot = telebot.TeleBot(API_TOKEN) 
 
+
 basket =  [] #Общая корзина товаров 
-
-
 
 
 @bot.message_handler(commands=['start'])  #Приветствие
@@ -26,11 +27,9 @@ def say_hello(message):
     bot.send_message(message.chat.id,'Привіт! Вітаємо вас у боті Shaurma Island\nОберіть один з пунктів нижче:',reply_markup = main_menu_kb)
 
 
-
 @bot.message_handler() #Основной хендлер
 def kb_answer(message):  
    
-
 
    def check_num(message):   #Проверка номера 1
        msg = bot.send_message(message.chat.id,'Напишіть номер телефону у форматі 0123456789')
@@ -52,7 +51,6 @@ def kb_answer(message):
        user_data = message.text
        bot.send_message(message.chat.id,f"Ваше ім'я та прізвище:{user_data}")
        bot.send_message(message.chat.id,"Ваше замовлення прийнято")
-
 
 
    def order_acception(message): #Принятие заказа да/нет 1
@@ -98,17 +96,22 @@ def kb_answer(message):
            bot.send_message(message.chat.id,"Ось нaше меню:")
            bot.send_photo(message.chat.id,file)
 
+    
    if message.text == 'Назад': #При нажатии Назад
            bot.send_message(message.chat.id,"Ви повернулись назад",reply_markup=main_menu_kb)
+
+    
    if message.text == "Завершити замовленя" and basket != []: #При нажатии Завершить если корзина не пустая
        show_basket()
        order_acception(message)
        database.base()
 
+    
    if message.text == "Завершити замовленя" and basket == []: #При нажатии Завершить если корзина пустая
        bot.send_message(message.chat.id, "Ваше замовлення пусте(")
    if message.text == 'Зробити замовлення': #При нажати Зробити замовлення
-       bot.send_message(message.chat.id,"Ось наші позиції,щоб вибрати натисніть на кнопку",reply_markup=order_kb)\
+       bot.send_message(message.chat.id,"Ось наші позиції,щоб вибрати натисніть на кнопку",reply_markup=order_kb)
+       
     
     #Проверки на фильтрацию слова Завершить заказ дабы оно не попадало в корзину как елемент
    if message.text  in shaurma_posititons[0:7]:
@@ -145,16 +148,9 @@ def check_callback_data(callback):
         bot.send_message(callback.message.chat.id,"Це наші додатки",reply_markup=dodatki_kb)
 
 
-
-  
-
 #Запуск
 bot.polling()
 
-
-
-
-  
 
 #Запуск
 bot.polling()
