@@ -11,7 +11,7 @@ conn.execute('''CREATE TABLE IF NOT EXISTS orders
 
 
 conn.execute("INSERT INTO orders (first_name, last_name, order_number, address) VALUES (?, ?, ?, ?)",
-             (first_name, last_name, number, address))
+             (user_num, user_data, basket))
 
 conn.commit()
 
