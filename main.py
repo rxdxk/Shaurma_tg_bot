@@ -1,10 +1,11 @@
 import telebot
 from telebot import types
 #Импорты клавиатур из  keyboaards.py
-from keyboards import main_menu_kb,start_kb,order_kb,shaurma_kb,falafel_kb,garniers_kb,rols_kb,drinks_kb,shaurma_posititons,rols_positions,drinks_positions,falafel_positions,garniers_positions,yes_or_no_kb,dodatki_kb,dodatki_positions
+from keyboards import *
 import os 
 #Загрузка .env
 from dotenv import load_dotenv
+import database
 load_dotenv()
 
 
@@ -102,6 +103,7 @@ def kb_answer(message):
    if message.text == "Завершити замовленя" and basket != []: #При нажатии Завершить если корзина не пустая
        show_basket()
        order_acception(message)
+       database.base()
 
    if message.text == "Завершити замовленя" and basket == []: #При нажатии Завершить если корзина пустая
        bot.send_message(message.chat.id, "Ваше замовлення пусте(")
