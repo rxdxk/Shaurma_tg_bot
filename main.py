@@ -28,7 +28,14 @@ def say_hello(message):
 
 
 @bot.message_handler() #Основной хендлер
-def kb_answer(message):  
+def kb_answer(message):
+
+   def user_adress(message): #Адрес пользователя
+       msg = bot.send_message(message.chat.id,'Напишіть вашу адресу')
+       bot.register_next_step_handler(msg,user_adress2)
+   def user_adress2(message):
+       user_adress = message.text
+       bot.send_message(message.chat.id,"Ваше замовлення прийнято")
    
 
    def check_num(message):   #Проверка номера 1
