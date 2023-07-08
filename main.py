@@ -163,5 +163,3 @@ def check_callback_data(callback):
 bot.polling()
 
 
-#Запуск
-bot.polling()
