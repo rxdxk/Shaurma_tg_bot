@@ -1,9 +1,7 @@
 import telebot
-import database
-import os 
-from telebot import types
+import os
 #Импорты клавиатур из  keyboaards.py
-from keyboards import *
+from keyboards import * 
 #Загрузка .env
 from dotenv import load_dotenv
 
@@ -16,6 +14,10 @@ bot = telebot.TeleBot(API_TOKEN)
 
 
 basket =  [] #Общая корзина товаров 
+
+@bot.message_handler(commands=['help'])
+def help(message):
+    bot.send_message(message.chat.id,"Для того щоб подивитьсь меню натисніть:меню\nщоб оформити замовлення натисныть оформити замовлення")
 
 
 @bot.message_handler(commands=['start'])  #Приветствие
@@ -36,12 +38,10 @@ def kb_answer(message):
    def user_adress2(message): #Адрес пользователя2
        global user_adres
        user_adress = message.text
-       database.base()
        bot.send_message(message.chat.id,"Ваше замовлення прийнято")
-   
 
    def check_num(message):   #Проверка номера 1
-       msg = bot.send_message(message.chat.id,'Напишіть номер телефону у форматі 0123456789')
+       msg = bot.send_message(message.chat.id,'Напишіть номер телефону у форматі 0123456789',reply_markup=types.ReplyKeyboardRemove())
        bot.register_next_step_handler(msg,check_num2)
    def check_num2(message): #Проверка номера 2
         global user_num
@@ -120,7 +120,7 @@ def kb_answer(message):
     
    if message.text == "Завершити замовленя" and basket == []: #При нажатии Завершить если корзина пустая
        bot.send_message(message.chat.id, "Ваше замовлення пусте(")
-   if message.text == 'Зробити замовлення': #При нажати Зробити замовлення
+   if message.text == 'Оформити замовлення': #При нажати Зробити замовлення
        bot.send_message(message.chat.id,"Ось наші позиції,щоб вибрати натисніть на кнопку",reply_markup=order_kb)
        
     
@@ -161,5 +161,4 @@ def check_callback_data(callback):
 
 #Запуск
 bot.polling()
-
 
