@@ -1,6 +1,6 @@
 import sqlite3
 
-def create_order(order_id):
+def create_order(user_data, basket, user_num, user_adress):
     conn = sqlite3.connect('asd.db')
 
 
@@ -8,19 +8,18 @@ def create_order(order_id):
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS orders (
-            order_id INTEGER,
-            name TEXT
+            user_data TEXT,
+            basket TEXT,
+            user_num INTEGER,
+            user_adress TEXT
         )
     ''')
 
   
-    name = input("Введіть ваше ім'я: ")
-
-  
     cursor.execute('''
-        INSERT INTO orders (order_id, name)
-        VALUES (?, ?)
-    ''', (order_id, name,))
+        INSERT INTO orders (user_data, basket, user_num, user_adress)
+        VALUES (?, ?, ?, ?)
+    ''', (user_data, basket, user_num, user_adress,))
 
 
     cursor.execute('SELECT * FROM orders')
@@ -31,8 +30,3 @@ def create_order(order_id):
 
     cursor.close()
     conn.close()
-
-
-order_id = int(input("Введіть ID замовлення: "))
-
-create_order(order_id)
