@@ -1,9 +1,11 @@
-import telebot
 import os
-#Импорты клавиатур из  keyboaards.py
-from keyboards import * 
+import telebot
+import db
 #Загрузка .env
 from dotenv import load_dotenv
+#Импорты клавиатур из  keyboaards.py
+from keyboards import * 
+
 
 
 load_dotenv()
@@ -31,6 +33,9 @@ def say_hello(message):
 
 @bot.message_handler() #Основной хендлер
 def kb_answer(message):
+   def basket_for_user(message):
+    user_id = message.from_user.id
+    print(user_id)
 
    def user_adress(message): #Адрес пользователя
        msg = bot.send_message(message.chat.id,'Напишіть вашу адресу')
@@ -39,6 +44,7 @@ def kb_answer(message):
        global user_adres
        user_adress = message.text
        bot.send_message(message.chat.id,"Ваше замовлення прийнято")
+       db.create_order(user_data, basket_str, user_num, user_adress)
 
    def check_num(message):   #Проверка номера 1
        msg = bot.send_message(message.chat.id,'Напишіть номер телефону у форматі 0123456789',reply_markup=types.ReplyKeyboardRemove())
@@ -122,6 +128,8 @@ def kb_answer(message):
        bot.send_message(message.chat.id, "Ваше замовлення пусте(")
    if message.text == 'Оформити замовлення': #При нажати Зробити замовлення
        bot.send_message(message.chat.id,"Ось наші позиції,щоб вибрати натисніть на кнопку",reply_markup=order_kb)
+   else:
+       bot.send_message(message.chat.id, "Я вас не розумію")
        
     
     #Проверки на фильтрацию слова Завершить заказ дабы оно не попадало в корзину как елемент
@@ -161,4 +169,3 @@ def check_callback_data(callback):
 
 #Запуск
 bot.polling()
-
