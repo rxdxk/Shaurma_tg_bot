@@ -11,76 +11,47 @@ def fill_in_keyboard(keyboard_positions,keyboard_buttons,is_keyboard_inline = Fa
     else:
        for x in keyboard_positions:
           keyboard_buttons.append(types.InlineKeyboardButton(x,callback_data=x))
-
-
-#types.InlineKeyboardButton("name",callback_data='callback_data')
-
 #Клавиатура да/нет
 yes_or_no_buttons = [types.KeyboardButton('Так'),
                      types.KeyboardButton('Ні')]
 yes_or_no_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*yes_or_no_buttons)
-
-
-
 #Клавиатура главного меню
 main_menu_buttons = [types.KeyboardButton("Меню"),
                      types.KeyboardButton("Оформити замовлення"),]
 main_menu_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*main_menu_buttons)
-
 #Клавиатура заказа
 order_positions = ["Шаурма","Фалафель","Роли","Гарніри","Напої","Додатки",]
 order_buttons = []
 fill_in_keyboard(order_positions,order_buttons,True)
 order_kb = types.InlineKeyboardMarkup().add(*order_buttons)
-
-
-
 #Клавиатура позиций шаурмы
 shaurma_posititons = ['Міні патч',"Стандартний патч","Середній патч","Подвійний патч","Shaurma island","Shaurma imba","Jalapeno island","Назад","Завершити замовленя"]
 shaurma_buttons = []
 fill_in_keyboard(shaurma_posititons,shaurma_buttons)
-
-
-
 shaurma_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*shaurma_buttons)
-
-
 #Клавиатура позиций фалаелей
 falafel_positions = ["Наршараб","Чеддерна в піті","Назад","Завершити замовленя"]
 falafel_buttons = []
 fill_in_keyboard(falafel_positions,falafel_buttons)
-
 falafel_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*falafel_buttons)
-
-
 #Клавиатура позиций гарниров 
 garniers_positions = ["Box фрі","Box по-селянськи","По-селянськи","Нагетси","Назад","Завершити замовленя"]
 garniers_buttons = []
 fill_in_keyboard(garniers_positions,garniers_buttons)
-
 garniers_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*garniers_buttons)
-
-
 #Клавиатура позиций ролов
 rols_positions = ["Фалафель рол","Французький рол","Баварський рол","Подвійний рол баварський","Подвійний рол французький","Назад","Завершити замовленя"]
 rols_buttons = []
 fill_in_keyboard(rols_positions,rols_buttons)
-
 rols_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*rols_buttons)
-
-
 #Клавиатура позиций напитков
 drinks_positions = ["Coca-cola","Sprite","Fanta","Назад","Завершити замовленя"]
 drinks_buttons=  []
 fill_in_keyboard(drinks_positions,drinks_buttons)
-
-
 drinks_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*drinks_buttons)
-
 #Клавиатура позиций добавлений
 dodatki_positions = ["Кукурудза","Чеддерний соус","Соус Наршараб","Сир Ананас","Перець Халапеньо","Картопля","Завершити замовленя","Назад"]
 dodatki_buttons = []
 fill_in_keyboard(dodatki_positions,dodatki_buttons)
 dodatki_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*dodatki_buttons)
-
 order_buttons_list = [*shaurma_posititons,*rols_positions,*drinks_positions,*falafel_positions,*dodatki_positions,*garniers_positions]
