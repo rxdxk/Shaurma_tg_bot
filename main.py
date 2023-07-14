@@ -29,7 +29,6 @@ def say_hello(message):
         my_dict[user_id] = []
     send_photo('stonik.jpg',message)
     bot.send_message(message.chat.id,"Shaurma island - very well" ,reply_markup=start_kb)
-    kb2 = types.ReplyKeyboardMarkup(resize_keyboard=True)
     bot.send_message(message.chat.id,'Привіт! Вітаємо вас у боті Shaurma Island\nОберіть один з пунктів нижче:',reply_markup = main_menu_kb)
 
 
