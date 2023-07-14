@@ -24,7 +24,7 @@ yes_or_no_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*yes_or_no_bu
 
 #Клавиатура главного меню
 main_menu_buttons = [types.KeyboardButton("Меню"),
-                     types.KeyboardButton("Зробити замовлення"),]
+                     types.KeyboardButton("Оформити замовлення"),]
 main_menu_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*main_menu_buttons)
 
 #Клавиатура заказа
@@ -62,7 +62,7 @@ garniers_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*garniers_butt
 
 
 #Клавиатура позиций ролов
-rols_positions = ["Фалафель рол","Французький рол","Баварський рол","Подвійний рол баварський","Продівйний рол французький","Назад","Завершити замовленя"]
+rols_positions = ["Фалафель рол","Французький рол","Баварський рол","Подвійний рол баварський","Подвійний рол французький","Назад","Завершити замовленя"]
 rols_buttons = []
 fill_in_keyboard(rols_positions,rols_buttons)
 
@@ -82,3 +82,5 @@ dodatki_positions = ["Кукурудза","Чеддерний соус","Соу�
 dodatki_buttons = []
 fill_in_keyboard(dodatki_positions,dodatki_buttons)
 dodatki_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*dodatki_buttons)
+
+order_buttons_list = [*shaurma_posititons,*rols_positions,*drinks_positions,*falafel_positions,*dodatki_positions,*garniers_positions]
