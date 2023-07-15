@@ -102,18 +102,16 @@ def kb_answer(message):
 
    def basket_append(message):
      user_id = message.from_user.id
-     if user_id in my_dict:
-         my_dict[user_id].append(message.text)
-         bot.reply_to(message, f"Товар {message.text} доданий в корзину")
-         print(my_dict)
+     my_dict[user_id].append(message.text)
+     bot.reply_to(message, f"Товар {message.text} доданий в корзину")
+     print(my_dict)
 
    def show_basket():#Показывает корзину 
        global basket
        user_id = message.from_user.id
-       if user_id in my_dict:
-           basket = my_dict[user_id]
-           basket_str = (', ').join(basket)
-           bot.reply_to(message, f"Ваша корзина: {(', ').join(basket)}")
+       basket = my_dict[user_id]
+       basket_str = (', ').join(basket)
+       bot.reply_to(message, f"Ваша корзина: {(', ').join(basket)}")
 
    if message.text == 'Меню':  #При нажатии Меню
        bot.send_message(message.chat.id,"Ось нaше меню:")
