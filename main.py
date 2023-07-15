@@ -1,10 +1,11 @@
 import os
 import telebot
+#Импорт базы данных
 import db
-from dotenv import load_dotenv
 #Импорты клавиатур из  keyboaards.py
 from keyboards import * 
 #Загрузка .env
+from dotenv import load_dotenv
 load_dotenv()
 
 API_TOKEN = os.getenv('API_TOKEN') #Токен из .env
@@ -111,7 +112,7 @@ def kb_answer(message):
        user_id = message.from_user.id
        basket = my_dict[user_id]
        basket_str = (', ').join(basket)
-       bot.reply_to(message, f"Ваша корзина: {(', ').join(basket)}")
+       bot.reply_to(message, f"Ваша корзина: {basket_str}")
 
    if message.text == 'Меню':  #При нажатии Меню
        bot.send_message(message.chat.id,"Ось нaше меню:")
@@ -165,3 +166,4 @@ def check_callback_data(callback):
         bot.send_message(callback.message.chat.id,"Це наші додатки",reply_markup=dodatki_kb)
 #Запуск
 bot.polling()
+
