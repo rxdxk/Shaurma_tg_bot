@@ -35,7 +35,7 @@ falafel_buttons = []
 fill_in_keyboard(falafel_positions,falafel_buttons)
 falafel_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*falafel_buttons)
 #Клавиатура позиций гарниров 
-garniers_positions = ["Box фрі","Box по-селянськи","По-селянськи","Нагетси","Назад","Завершити замовленя"]
+garniers_positions = ["Box фрі🍟","Box по-селянськи🥔","По-селянськи🥔","Нагетси🐓","Назад🔙","Завершити замовленя⛔️"]
 garniers_buttons = []
 fill_in_keyboard(garniers_positions,garniers_buttons)
 garniers_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*garniers_buttons)
