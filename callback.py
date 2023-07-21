@@ -2,12 +2,11 @@ from config import bot
 import keyboards
 
 callback_data_handlers = {
-    "Шаурма": keyboards.shaurma_kb,
-    "Фалафель": keyboards.falafel_kb,
-    "Гарніри": keyboards.garniers_kb,
-    "Роли": keyboards.rols_kb,
-    "Напої": keyboards.drinks_kb,
-    "Додатки": keyboards.dodatki_kb
+    "Шаурма🌯": keyboards.shaurma_kb,
+    "Фалафель🧆": keyboards.falafel_kb,
+    "Гарніри🍟": keyboards.garniers_kb,
+    "Роли🌯": keyboards.rols_kb,
+    "Напої🥤": keyboards.drinks_kb
 }
 
 @bot.callback_query_handler(func=lambda callback: callback.data)
