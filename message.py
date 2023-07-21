@@ -60,7 +60,7 @@ def kb_answer(message):
            acception_buttons = []
            acception_key_func(acception_buttons)
            acception_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*acception_buttons)
-           msg = bot.send_message(message.chat.id,"Що ви хочете змінити ?",reply_markup=acception_kb)
+           msg = bot.send_message(message.chat.id,"Що ви хочете видалити ?",reply_markup=acception_kb)
            bot.register_next_step_handler(msg,user_order_acception_forward)
        elif user_response == 'Ні❌'  and basket == []:
            bot.send_message(message.chat.id,"Ваша корзина пуста (",reply_markup=main_menu_kb)
