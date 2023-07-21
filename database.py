@@ -1,4 +1,5 @@
 import sqlite3
+import os
 from telebot import TeleBot
 from dotenv import load_dotenv
 load_dotenv()
