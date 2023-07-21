@@ -5,7 +5,7 @@ from send_photo_func import send_photo
 
 @bot.message_handler(commands=['help'])
 def help(message):
-    bot.send_message(message.chat.id,"Для того щоб подивитьсь меню натисніть:меню\nщоб оформити замовлення натисныть оформити замовлення")
+    bot.send_message(message.chat.id,"Для того щоб подивитьсь меню натисніть кнопку меню\nЩоб оформити замовлення натисніть оформити замовлення")
 
 
 @bot.message_handler(commands=['start'])  #Приветствие
