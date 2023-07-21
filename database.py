@@ -1,4 +1,5 @@
- import sqlite3
+import sqlite3
+group_chat_id=-922258463
 
 def create_order(user_data, basket_str, user_num, user_adress):
     conn = sqlite3.connect('zxc.db')
@@ -15,14 +16,6 @@ def create_order(user_data, basket_str, user_num, user_adress):
         INSERT INTO orders (user_data, basket_str, user_num, user_adress)
         VALUES (?, ?, ?, ?)
     ''', (user_data, basket_str, user_num, user_adress,))
-    cursor.execute('SELECT * FROM orders')
-    rows = cursor.fetchall() 
-    for row in rows:
-        with open('zxc.txt', w) as file:
-            file.write(str(rows))
-    # Создание подключения к базе данных
-    conn = sqlite3.connect('orders.db')
-    cursor = conn.cursor()
 
     # Выполнение запроса для получения новых элементов из таблицы
     cursor.execute('SELECT * FROM orders WHERE sent = 0')
@@ -30,12 +23,12 @@ def create_order(user_data, basket_str, user_num, user_adress):
 
     # Отправка новых элементов в группу
     for row in new_rows:
-        order_id, name = row[0], row[1]
-        message = f"Новый заказ: Order ID: {order_id}, Name: {name}"
+        user_data, basket_str, user_num, user_adress = row[0], row[1], row[2], row[3]
+        message = f"Нове замовлення: Данні: {user_data}, Замовлення: {basket_str}, Номер телефону:{user_num}, Адресса:{user_adress} "
         bot.send_message(group_chat_id, message)
 
         # Помечаем элемент как отправленный, чтобы не отправить его снова в будущем
-        cursor.execute('UPDATE orders SET sent = 1 WHERE order_id = ?', (order_id,))
+        cursor.execute('UPDATE orders SET sent = 1 WHERE user_data = ?, basket_str = ?, user_num = ?, user_adress = ?', (user_data, basket_str, user_num, user_adress,))
         conn.commit()
 
     # Закрытие курсора и подключения
