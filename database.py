@@ -1,7 +1,11 @@
 import sqlite3
 from telebot import TeleBot
+from dotenv import load_dotenv
+load_dotenv()
 
-bot = TeleBot(Your_token) 
+API_TOKEN = os.getenv('API_TOKEN')
+
+bot = TeleBot(API_TOKEN) 
 group_chat_id=your_chat_id
 
 def create_order(user_data, basket_str, user_num, user_adress, sent,):
