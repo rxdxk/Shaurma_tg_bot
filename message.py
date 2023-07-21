@@ -14,7 +14,7 @@ def kb_answer(message):
        user_adress = message.text
        bot.send_message(message.chat.id,"Ваше замовлення прийнято✅")
        my_dict.clear()
-       db.create_order(user_data, str(basket), user_num, user_adress)
+       db.create_order(user_data, str(basket), user_num, user_adress,0)
 
    def check_user_num(message):   #Проверка номера 1
        msg = bot.send_message(message.chat.id,'Напишіть номер телефону почнаючи з 0📞',reply_markup=types.ReplyKeyboardRemove())
@@ -51,18 +51,18 @@ def kb_answer(message):
 
    def user_order_acception_next_step(message): #Принятие заказа да/нет 1
        user_response = message.text
-       if user_response == 'Так' and basket != []:
+       if user_response == 'Так✅' and basket != []:
            bot.send_message(message.chat.id,"Супер!")
            check_user_num(message)
-       elif user_response =='Так' and basket ==[]:
+       elif user_response == 'Так✅' and basket ==[]:
            bot.send_message(message.chat.id,"Ваша корзина пуста (",reply_markup=main_menu_kb)
-       elif user_response == "Ні" and basket != []:
+       elif user_response == 'Ні❌' and basket != []:
            acception_buttons = []
            acception_key_func(acception_buttons)
            acception_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*acception_buttons)
            msg = bot.send_message(message.chat.id,"Що ви хочете змінити ?",reply_markup=acception_kb)
            bot.register_next_step_handler(msg,user_order_acception_forward)
-       elif user_response == "Ні" and basket == []:
+       elif user_response == 'Ні❌'  and basket == []:
            bot.send_message(message.chat.id,"Ваша корзина пуста (",reply_markup=main_menu_kb)
 
    def check_basket(message):
@@ -103,7 +103,7 @@ def kb_answer(message):
    elif message.text == "Завершити замовленя⛔️" and basket == []: #При нажатии Завершить если корзина пустая
        bot.send_message(message.chat.id, "Ваше замовлення пусте🤷‍♂️")
        print(basket)
-   elif message.text == 'Оформити замовлення📝': #При нажати Зробити замовлення
+   elif message.text == 'Оформити замовлення✍️': #При нажати Зробити замовлення
        bot.send_message(message.chat.id,"Ось наші позиції,щоб обрати товар натисніть на кнопку",reply_markup=order_kb)   
     #Проверки на фильтрацию слова Завершить заказ дабы оно не попадало в корзину как елемент
    elif message.text  in shaurma_posititons[0:7]:
@@ -118,9 +118,6 @@ def kb_answer(message):
    elif message.text  in drinks_positions[0:3]:
        basket_append(message)
        show_basket()
-   elif message.text  in dodatki_positions[0:6]:
-      basket_append(message)
-      show_basket()
    elif message.text in garniers_positions[0:3]:
         basket_append(message)
         show_basket()
