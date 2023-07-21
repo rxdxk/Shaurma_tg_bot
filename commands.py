@@ -14,6 +14,6 @@ def say_hello(message):
     if user_id not in my_dict:
         my_dict[user_id] = []
     send_photo('stonik.jpg',message)
-    bot.send_message(message.chat.id,"Shaurma island - very well" ,reply_markup=start_kb)
-    bot.send_message(message.chat.id,'Привіт! Вітаємо вас у боті Shaurma Island\nОберіть один з пунктів нижче:',reply_markup = main_menu_kb)
+    bot.send_message(message.chat.id,"Shaurma island - шаурма для футбольних фанатів⚽️" ,reply_markup=start_kb)
+    bot.send_message(message.chat.id,'Привіт! Вітаємо вас у боті Shaurma Island👋\nОберіть один з пунктів нижче:',reply_markup = main_menu_kb)
     
