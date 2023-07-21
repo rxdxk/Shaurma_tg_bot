@@ -16,9 +16,7 @@ def create_order(user_data, basket_str, user_num, user_adress):
         VALUES (?, ?, ?, ?)
     ''', (user_data, basket_str, user_num, user_adress,))
     cursor.execute('SELECT * FROM orders')
-    rows = cursor.fetchall()
-    for row in rows:
-        print(row)
+    rows = cursor.fetchall()    
     cursor.close()
     conn.close()
-
+    return rows
