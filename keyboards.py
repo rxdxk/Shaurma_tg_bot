@@ -20,7 +20,7 @@ main_menu_buttons = [types.KeyboardButton("Меню📋"),
                      types.KeyboardButton("Оформити замовлення✍️"),]
 main_menu_kb = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*main_menu_buttons)
 #Клавиатура заказа
-order_positions = ["Шаурма🌯","Фалафель🧆","Роли🌯","Гарніри🍟","Напої🥤","Додатки",]
+order_positions = ["Шаурма🌯","Фалафель🧆","Роли🌯","Гарніри🍟","Напої🥤",]
 order_buttons = []
 fill_in_keyboard(order_positions,order_buttons,True)
 order_kb = types.InlineKeyboardMarkup().add(*order_buttons)
