@@ -6,18 +6,18 @@ from send_photo_func import send_photo
 def kb_answer(message):
    
    def get_user_adress(message): #Адрес пользователя
-       msg = bot.send_message(message.chat.id,'Напишіть вашу адресу')
+       msg = bot.send_message(message.chat.id,'Напишіть вашу адресу🏠')
        bot.register_next_step_handler(msg,get_user_adress_next_step)
 
    def get_user_adress_next_step(message): #Адрес пользователя2
        global user_adres
        user_adress = message.text
-       bot.send_message(message.chat.id,"Ваше замовлення прийнято")
+       bot.send_message(message.chat.id,"Ваше замовлення прийнято✅")
        my_dict.clear()
        db.create_order(user_data, str(basket), user_num, user_adress)
 
    def check_user_num(message):   #Проверка номера 1
-       msg = bot.send_message(message.chat.id,'Напишіть номер телефону почнаючи з 0',reply_markup=types.ReplyKeyboardRemove())
+       msg = bot.send_message(message.chat.id,'Напишіть номер телефону почнаючи з 0📞',reply_markup=types.ReplyKeyboardRemove())
        bot.register_next_step_handler(msg,check_user_num_next_step)
 
    def check_user_num_next_step(message): #Проверка номера 2
@@ -27,11 +27,11 @@ def kb_answer(message):
             bot.send_message(message.chat.id,f'Ваш номер {user_num}')
             get_user_data(message)
         elif len(user_num) != 10 or user_num[0] != '0':
-            bot.send_message(message.chat.id,'Номер введено невірно')
+            bot.send_message(message.chat.id,'Номер введено невірно🙅‍♂️')
             check_user_num(message)
 
    def get_user_data(message): #Получаем имя и фамилию 1
-       msg = bot.send_message(message.chat.id,"Введіть ваше ім'я та призвище")
+       msg = bot.send_message(message.chat.id,"Введіть ваше ім'я та призвище📝")
        bot.register_next_step_handler(msg,get_user_data_next_step)
 
    def get_user_data_next_step(message):#Получаем имя и фамилию 1
@@ -81,7 +81,7 @@ def kb_answer(message):
    def basket_append(message):
      user_id = message.from_user.id
      my_dict[user_id].append(message.text)
-     bot.reply_to(message, f"Товар {message.text} доданий в корзину")
+     bot.reply_to(message, f"Товар {message.text} доданий в корзину✅")
      print(my_dict)
 
    def show_basket():#Показывает корзину 
@@ -101,7 +101,7 @@ def kb_answer(message):
        show_basket()
        user_order_acception(message)
    elif message.text == "Завершити замовленя" and basket == []: #При нажатии Завершить если корзина пустая
-       bot.send_message(message.chat.id, "Ваше замовлення пусте(")
+       bot.send_message(message.chat.id, "Ваше замовлення пусте🤷‍♂️")
        print(basket)
    elif message.text == 'Оформити замовлення': #При нажати Зробити замовлення
        bot.send_message(message.chat.id,"Ось наші позиції,щоб вибрати натисніть на кнопку",reply_markup=order_kb)   
