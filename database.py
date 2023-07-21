@@ -16,7 +16,9 @@ def create_order(user_data, basket_str, user_num, user_adress):
         VALUES (?, ?, ?, ?)
     ''', (user_data, basket_str, user_num, user_adress,))
     cursor.execute('SELECT * FROM orders')
-    rows = cursor.fetchall()    
+    rows = cursor.fetchall() 
+    for row in rows:
+        with open('zxc.txt', w) as file:
+            file.write(str(rows))
     cursor.close()
     conn.close()
-    return rows
