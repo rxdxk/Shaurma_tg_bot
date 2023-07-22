@@ -1,4 +1,5 @@
-from config import bot,my_dict,db,types
+from config import bot,my_dict,types
+import db
 from keyboards import *
 from send_photo_func import send_photo
 
